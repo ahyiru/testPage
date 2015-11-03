@@ -77,9 +77,14 @@
 
 </head>
 <body>
+
+<form action="/status/" method="POST">
+	{% csrf_token %}
+	<input type="hidden" id="id_openid" name="openid" value="{{ openid }}">
+	<input type="hidden" id="id_devicedata" name="devicedata" value="{{ devicedata }}">
+</form>
+
 <div class="dev"></div>
-
-
 
 <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
