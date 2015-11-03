@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<title>设备管理</title>
+<meta name="viewport" content="initial-scale=1.0,maximum-scale=1,user-scalable=no">
+<link href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+<style>
+	html,body{
+		padding:0;
+		margin:0;
+		width:100%;
+		overflow:auto;
+		font-family:Arial,微软雅黑,Helvetica,sans-serif,黑体,宋体;
+		color:#000;
+		font-size:11px;
+	}
+	input{
+		-webkit-appearance:none;
+		font-family:Arial,微软雅黑,Helvetica,sans-serif,黑体,宋体;
+	}
+	.dev{
+		
+	}
+	.dev>ul{
+		list-style:none;
+		margin:0;
+		padding:0;
+	}
+	.dev>ul>li{
+		background:#fff;
+		border-bottom:1px solid #ccc;
+		padding:0;
+		margin:0;
+		height:48px;
+		line-height:48px;
+	}
+	.myl,.myr{
+		width:54px;
+		cursor:pointer;
+		height:48px;
+		padding-top:5px;
+		text-align:center;
+		-moz-box-sizing:border-box;
+        -webkit-box-sizing:border-box;
+        box-sizing:border-box;
+	}
+	.myl{
+		float:left;
+		background:#708090;
+	}
+	.myr{
+		float:right;
+		/*background:#F8F8FF;*/
+		background:#ED561B;
+	}
+	.myl>i{
+		font-size:28px;
+		color:#ddd;
+	}
+	.myr>i{
+		font-size:24px;
+		/*color:#ED561B !important;*/
+		color:#fff !important;
+	}
+	.chk{
+		color:#00FF00 !important;
+	}
+	.txt{
+		margin:0 50px;
+		font-size:24px;
+		text-align:center;
+		background:#058DC7;
+		color:#fff;
+	}
+</style>
+
+</head>
+<body>
+<div class="dev"></div>
+
+
+
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+
+$.get('http://115.28.142.131/jsconfig/?operate=status',function(data){
+	wx.config({
+	    debug: true,
+	    appId: data.appId,
+	    timestamp: data.timestamp,
+	    nonceStr: data.noncestr,
+	    signature: data.signature,
+	    jsApiList: ['onMenuShareTimeline',
+					'onMenuShareAppMessage',
+					'onMenuShareQQ',
+					'onMenuShareWeibo'
+				]
+	});
+	wx.ready(function(){
+		init();
+	});
+	wx.error(function (res) {
+		alert(res.errMsg);
+	});
+});
+
+var init=function(){
+	var id_openid=$('#id_openid').val();
+	var ticket='';
+	try{
+		ticket=getWXDeviceTicket(id_openid,1);
+	}
+	catch(err){
+		ticket='';
+	}
+
+	var init_url="http://115.28.142.131/bindinfo/?openid="+id_openid;
+	var sucFunc=function(data){
+	    console.log(data);
+	    if(!data||data.length<1){
+	    	alert('请绑定设备！');
+	    	window.location.href(init_url);
+	    	// window.location.reload();
+	    	// return false;
+	    }
+	    // var data=data.myd;
+	    var chk='',dis='',li='';
+	    $('.dev').html('');
+	    for(var i=0;i<data.length;i++){
+	    	if(data[i].selected) chk='fa fa-check-circle chk';
+	    	else chk='fa fa-circle-thin';
+	    	dis=$.trim(data[i].displayname);
+	    	li+='<li><div class="myl"><i class="'+chk+'"></i> </div><div class="myr"><i class="fa fa-trash-o"></i> </div><div class="txt">'+dis+'</div></li>';
+	    }
+	    
+	    $('.dev').append('<ul>'+li+'</ul>');
+	    $('.myl').each(function(i){
+	    	$(this).on('click',function(){
+				var that=$(this).find('i'),sel;
+				if(that.hasClass('chk')) sel=false;
+				else sel=true;
+				var openid=$.trim(data[i].openid),
+					did=$.trim(data[i].vendordeviceid),
+					url="http://115.28.142.131/changeselect/?openid="+openid+"&vendordeviceid="+did+"&selected="+sel;
+
+				$.ajax({
+				     type: "POST",
+				     contentType: "application/json; charset=utf-8",
+				     dataType: "json",
+				     url: url, //
+				     data: {'openid':openid,'selected':sel,'vendordeviceid':did},
+				     success: sucFunc,
+				     error: errFunc
+				 });
+			});
+	    });
+	    $('.myr').each(function(i){
+	    	$(this).on('click',function(){
+				var result=confirm('确定删除此设备吗？');
+				var openid=$.trim(data[i].openid),
+					did=$.trim(data[i].vendordeviceid),
+					wxid=$.trim(data[i].vendordeviceid),
+					url="http://115.28.142.131/unbind/?openid="+openid+"&vendordeviceid="+did+"&weixindeviceid="+wxid+"&ticket="+ticket;
+				if(result){
+					$.ajax({
+					     type: "POST",
+					     contentType: "application/json; charset=utf-8",
+					     dataType: "json",
+					     url: url,
+					     data: {'openid':openid,'vendordeviceid':did,'weixindeviceid':wxid,'ticket':ticket},
+					     success: sucFunc,
+					     error: errFunc
+					 });
+					alert('删除成功！');
+				}
+				else{
+					alert('取消删除！');
+					return false;
+				}
+
+			});
+	    });
+		
+	},
+	    errFunc=function(err){
+	        console.log('err:'+err);
+	    };
+
+	$.ajax({
+	     type: "GET",
+	     contentType: "application/json; charset=utf-8",
+	     dataType: "json",
+	     url: init_url,
+	     data: {},
+	     success: sucFunc,
+	     error: errFunc
+	 });
+}
+
+</script>
+
+</body>
+</html>
