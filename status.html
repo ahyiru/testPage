@@ -90,18 +90,50 @@
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
 
-$.get('http://115.28.142.131/jsconfig/?operate=status',function(data){
+$.post('http://115.28.142.131/jsconfig/',{'url':location.href.split('#')[0]},function(data){
 	wx.config({
 	    debug: true,
 	    appId: data.appId,
 	    timestamp: data.timestamp,
-	    nonceStr: data.noncestr,
+	    nonceStr: data.nonceStr,
 	    signature: data.signature,
-	    jsApiList: ['onMenuShareTimeline',
-					'onMenuShareAppMessage',
-					'onMenuShareQQ',
-					'onMenuShareWeibo'
-				]
+	    jsApiList: [
+	    	'onMenuShareTimeline',
+			'onMenuShareAppMessage',
+			'onMenuShareQQ',
+			'onMenuShareWeibo',
+			'onMenuShareQZone',
+			'startRecord',
+			'stopRecord',
+			'onVoiceRecordEnd',
+			'playVoice',
+			'pauseVoice',
+			'stopVoice',
+			'onVoicePlayEnd',
+			'uploadVoice',
+			'downloadVoice',
+			'chooseImage',
+			'previewImage',
+			'uploadImage',
+			'downloadImage',
+			'translateVoice',
+			'getNetworkType',
+			'openLocation',
+			'getLocation',
+			'hideOptionMenu',
+			'showOptionMenu',
+			'hideMenuItems',
+			'showMenuItems',
+			'hideAllNonBaseMenuItem',
+			'showAllNonBaseMenuItem',
+			'closeWindow',
+			'scanQRCode',
+			'chooseWXPay',
+			'openProductSpecificView',
+			'addCard',
+			'chooseCard',
+			'openCard'
+	    ]
 	});
 	wx.ready(function(){
 		init();
@@ -112,25 +144,16 @@ $.get('http://115.28.142.131/jsconfig/?operate=status',function(data){
 });
 
 var init=function(){
-	var id_openid=$('#id_openid').val();
-	var ticket='';
-	try{
-		ticket=getWXDeviceTicket(id_openid,1);
-	}
-	catch(err){
-		ticket='';
-	}
 
-	var init_url="http://115.28.142.131/bindinfo/?openid="+id_openid;
+	var init_url="http://115.28.142.131/bindinfo/?openid="+$('#id_openid').val();
+
 	var sucFunc=function(data){
-	    console.log(data);
 	    if(!data||data.length<1){
 	    	alert('请绑定设备！');
 	    	window.location.href(init_url);
 	    	// window.location.reload();
 	    	// return false;
 	    }
-	    // var data=data.myd;
 	    var chk='',dis='',li='';
 	    $('.dev').html('');
 	    for(var i=0;i<data.length;i++){
@@ -166,8 +189,15 @@ var init=function(){
 				var result=confirm('确定删除此设备吗？');
 				var openid=$.trim(data[i].openid),
 					did=$.trim(data[i].vendordeviceid),
-					wxid=$.trim(data[i].vendordeviceid),
-					url="http://115.28.142.131/unbind/?openid="+openid+"&vendordeviceid="+did+"&weixindeviceid="+wxid+"&ticket="+ticket;
+					wxid=$.trim(data[i].vendordeviceid);
+				var ticket='';
+				try{
+					ticket=getWXDeviceTicket(wxid,1);
+				}
+				catch(err){
+					ticket='';
+				}
+				var url="http://115.28.142.131/unbind/?openid="+openid+"&vendordeviceid="+did+"&weixindeviceid="+wxid+"&ticket="+ticket;
 				if(result){
 					$.ajax({
 					     type: "POST",
