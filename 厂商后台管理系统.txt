@@ -1,0 +1,36 @@
+厂商后台管理系统
+
+jquery2.1.4 bootstrap3.3.5 angular1.4.7
+
+登录
+jquery ajax
+angular $http
+
+$http服务是ng的核心服务，它封装了XMLHttpRequest对象，同时也支持JSONP。
+$resource服务是建立在$http上的，提供了更好的配合RESTful的接口。
+
+$resource服务的核心价值在于：提供给开发者与RESTful风格WebServices交互的更好的用户体验，它封装了较为低级的$http，这样就不需要前端开发者写大量的异步请求代码了。
+
+$resource服务的配置方法：
+$resource(url[, paramDefaults][, actions]);
+
+
+localstorage/cookie储存用户信息，10分钟cookie失效，每一次数据请求都要验证用户信息，验证成功返回该用户信息，否则返回登录界面。
+
+1.AngularJS 认证模块 Satellizer
+Satellizer是一个端到端的基于 token 的AngularJS认证模块，Satellizer支持Google、Facebook、LinkedIn 和 Twitter 认证体系，并且也提供邮箱和密码的登录方式，另外Satellizer支持 OAuth 1.0 和 2.0 规范，所以你可以更加灵活地扩展认证方法。
+
+http://m.blog.csdn.net/blog/SalmonellaVaccine/38040853
+http://ju.outofmemory.cn/entry/137689
+https://blog.coding.net/blog/techniques-for-authentication-in-angular-js-applications?type=hot
+
+功能
+待定
+
+参考：
+http://cms.eaglenet.cn/
+https://www.ablecloud.cn/
+
+系统模板：
+https://github.com/so1337
+https://github.com/wialejo
