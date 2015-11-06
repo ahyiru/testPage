@@ -1,4 +1,9 @@
+http://rensanning.iteye.com/blog/1585046
+http://www.ruanyifeng.com/blog/
+
 ³§ÉÌºóÌ¨¹ÜÀíÏµÍ³
+
+³§ÉÌºóÌ¨¹ÜÀíÏµÍ³Ö÷ÒªÊÇÌá¹©¸ø³§ÉÌ¸üºÃµÄ¹ÜÀí¡¢¸ú×ÙÉè±¸£¬¶ÔÉè±¸µÄĞÅÏ¢½øĞĞÊÕ¼¯·ÖÎö£¬ÒÔ±ãÎªÓÃ»§Ìá¹©¸üºÃµÄ·şÎñ¡£
 
 jquery2.1.4 bootstrap3.3.5 angular1.4.7
 
@@ -14,15 +19,18 @@ $resource·şÎñµÄºËĞÄ¼ÛÖµÔÚÓÚ£ºÌá¹©¸ø¿ª·¢ÕßÓëRESTful·ç¸ñWebServices½»»¥µÄ¸üºÃµÄÓÃ»
 $resource·şÎñµÄÅäÖÃ·½·¨£º
 $resource(url[, paramDefaults][, actions]);
 
+http://m.blog.csdn.net/blog/SalmonellaVaccine/38040853
+http://ju.outofmemory.cn/entry/137689
+https://blog.coding.net/blog/techniques-for-authentication-in-angular-js-applications?type=hot
+
 
 localstorage/cookie´¢´æÓÃ»§ĞÅÏ¢£¬10·ÖÖÓcookieÊ§Ğ§£¬Ã¿Ò»´ÎÊı¾İÇëÇó¶¼ÒªÑéÖ¤ÓÃ»§ĞÅÏ¢£¬ÑéÖ¤³É¹¦·µ»Ø¸ÃÓÃ»§ĞÅÏ¢£¬·ñÔò·µ»ØµÇÂ¼½çÃæ¡£
 
 1.AngularJS ÈÏÖ¤Ä£¿é Satellizer
 SatellizerÊÇÒ»¸ö¶Ëµ½¶ËµÄ»ùÓÚ token µÄAngularJSÈÏÖ¤Ä£¿é£¬SatellizerÖ§³ÖGoogle¡¢Facebook¡¢LinkedIn ºÍ Twitter ÈÏÖ¤ÌåÏµ£¬²¢ÇÒÒ²Ìá¹©ÓÊÏäºÍÃÜÂëµÄµÇÂ¼·½Ê½£¬ÁíÍâSatellizerÖ§³Ö OAuth 1.0 ºÍ 2.0 ¹æ·¶£¬ËùÒÔÄã¿ÉÒÔ¸ü¼ÓÁé»îµØÀ©Õ¹ÈÏÖ¤·½·¨¡£
 
-http://m.blog.csdn.net/blog/SalmonellaVaccine/38040853
-http://ju.outofmemory.cn/entry/137689
-https://blog.coding.net/blog/techniques-for-authentication-in-angular-js-applications?type=hot
+http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html
+http://zhuanlan.zhihu.com/FrontendMagazine/19920223
 
 ¹¦ÄÜ
 ´ı¶¨
