@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<title>设备绑定</title>
+<meta name="viewport" content="initial-scale=1.0,maximum-scale=1,user-scalable=no">
+<link href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+<style>
+	html,body{
+		padding:0;
+		margin:0;
+		width:100%;
+		overflow:auto;
+		font-family:Arial,微软雅黑,Helvetica,sans-serif,黑体,宋体;
+		color:#000;
+		font-size:11px;
+	}
+	input{
+		-webkit-appearance:none;
+		font-family:Arial,微软雅黑,Helvetica,sans-serif,黑体,宋体;
+	}
+	.dev{
+		padding:2% 1%;
+	}
+	.t{
+		overflow:auto;
+		margin-bottom:10px;
+	}
+	.t1{
+		float:left;
+		width:62px;
+		height:42px;
+		line-height:42px;
+		text-align:center;
+		background:#1E90FF;
+		color:#fff;
+		font-size:13px;
+	}
+	.t1i{
+		margin-left:62px;
+	}
+	.t1i>input{
+		height:42px;
+		width:100%;
+		border:1px solid #ccc;
+		box-sizing:border-box;
+		-moz-box-sizing:border-box;
+		-webkit-box-sizing:border-box;
+		padding:1px 5px;
+	}
+	.t1i>div{
+		padding:2px 0 0 5px;
+		font-size:11px;
+		color:#333;
+	}
+	.err{
+		color:#ED561B !important;
+		display:none;
+	}
+	.mybtn{
+		display:inline-block;
+		width:100%;
+		height:42px;
+		line-height:42px;
+		color:#fff;
+		font-size:17px;
+		background:#1E90FF;
+		border:0;
+		padding:0;
+		border-radius:5px;
+	}
+	.suc{
+		margin:20px auto;
+		text-align:center;
+		display:none;
+	}
+	.suc>span{
+		font-size:17px;
+		font-weight:600;
+		color:#24CBE5;
+	}
+	.suc>span>i{
+		font-size:20px;
+		color:#64E572;
+	}
+</style>
+
+</head>
+<body>
+
+	<form action="/device/" method="post">
+		{% csrf_token %}
+		<input type="hidden" id="id_openid" name="openid" value="{{openid}}">
+		<input type="hidden" id="id_nickname" name="nickname" value="{{nickname}}">
+		<input type="hidden" id="id_headimgurl" name="headimgurl" value="{{headimgurl}}">
+		<input type="hidden" id="id_sex" name="sex" value="{{sex}}">
+		<input type="hidden" id="id_country" name="country" value="{{country}}">
+		<input type="hidden" id="id_province" name="province" value="{{province}}">
+		<input type="hidden" id="id_city" name="city" value="{{city}}">
+	</form>
+
+	<div class="dev">
+		<div class="t">
+			<div class="t1">编码</div>
+			<div class="t1i">
+				<input type="text" id="key" placeholder="请输入设备唯一编码" required>
+				<div>
+					唯一编码请到设备设置中的帐号设置查看
+				</div>
+				<div class="err ke">
+					编码错误！
+				</div>
+			</div>
+		</div>
+		<div class="t">
+			<div class="t1">昵称</div>
+			<div class="t1i">
+				<input type="text" id="name" placeholder="输入设备在您手机上显示的昵称" required>
+				<div>
+					1－12个字符
+				</div>
+				<div class="err ne">
+					编码错误！
+				</div>
+			</div>
+		</div>
+		<input type="submit" class="mybtn" value="去绑定">
+	</div>
+	<div class="suc">
+		<span><i class="fa fa-check-circle"></i> 绑定成功！</span>
+	</div>
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+
+$.post('http://115.28.142.131/jsconfig/',{'url':location.href.split('#')[0]},function(data){
+	wx.config({
+	    debug: true,
+	    appId: data.appId,
+	    timestamp: data.timestamp,
+	    nonceStr: data.nonceStr,
+	    signature: data.signature,
+	    jsApiList: [
+	    	'onMenuShareTimeline',
+			'onMenuShareAppMessage',
+			'onMenuShareQQ',
+			'onMenuShareWeibo',
+			'onMenuShareQZone',
+			'startRecord',
+			'stopRecord',
+			'onVoiceRecordEnd',
+			'playVoice',
+			'pauseVoice',
+			'stopVoice',
+			'onVoicePlayEnd',
+			'uploadVoice',
+			'downloadVoice',
+			'chooseImage',
+			'previewImage',
+			'uploadImage',
+			'downloadImage',
+			'translateVoice',
+			'getNetworkType',
+			'openLocation',
+			'getLocation',
+			'hideOptionMenu',
+			'showOptionMenu',
+			'hideMenuItems',
+			'showMenuItems',
+			'hideAllNonBaseMenuItem',
+			'showAllNonBaseMenuItem',
+			'closeWindow',
+			'scanQRCode',
+			'chooseWXPay',
+			'openProductSpecificView',
+			'addCard',
+			'chooseCard',
+			'openCard'
+	    ]
+	});
+	wx.ready(function(){
+		wx.hideOptionMenu();
+		init();
+	});
+	wx.error(function (res) {
+		alert(res.errMsg);
+	});
+});
+
+var init=function(){
+
+	var reg=/^[A-Za-z0-9]+$/;
+
+	$('#key').focus(function(){
+		$('.ke').hide();
+		$(this).val('');
+	})
+
+	$('#name').focus(function(){
+		$('.ne').hide();
+		$(this).val('');
+	})
+
+	$('.mybtn').on('click',function(){
+		var key=$('#key').val();
+		var name=$('#name').val();
+
+		if(key){
+			if(!reg.test(key)){
+				$('.ke').text('请输入有效编码！');
+				$('.ke').show();
+				return false;
+			}
+		}
+		else{
+			$('.ke').text('请输入编码！');
+			$('.ke').show();
+			return false;
+		}
+
+		if(name){
+			if(name.length>12){
+				$('.ne').text('昵称太长，请重新输入！');
+				$('.ne').show();
+				return false;
+			}
+		}
+		else{
+			$('.ne').text('请输入昵称！');
+			$('.ne').show();
+			return false;
+		}
+
+
+		var init_url='';
+
+		var data={
+			key:key,
+			name:name
+		};
+		$.post(init_url,data,sucFunc);
+	});
+
+	var sucFunc=function(data){
+		var openid=$.trim(data[i].openid),
+			did=$.trim(data[i].vendordeviceid),
+			wxid=$.trim(data[i].weixindeviceid);
+		var ticket='';
+		try{
+			ticket=getWXDeviceTicket(wxid,1);
+		}
+		catch(err){
+			ticket='';
+		}
+		var url="http://115.28.142.131/unbind/?openid="+openid+"&vendordeviceid="+did+"&weixindeviceid="+wxid+"&ticket="+ticket;
+		
+		$.post(url,{'ticket':ticket},function(res){
+			$('.suc').show();
+		})
+	}
+}
+
+</script>
+
+</body>
+</html>
