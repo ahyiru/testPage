@@ -42,3 +42,14 @@ https://www.ablecloud.cn/
 系统模板：
 https://github.com/so1337
 https://github.com/wialejo
+
+js是单线程（时间是单线程）
+
+嵌套－－>链式
+
+事件处理、ajax、业务逻辑 由回调变为线性，then。
+
+Promise是一种形式
+将异步操作转换成更符合先知视角的形式展现
+
+$.q
