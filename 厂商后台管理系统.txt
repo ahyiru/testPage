@@ -53,3 +53,16 @@ Promise是一种形式
 将异步操作转换成更符合先知视角的形式展现
 
 $.q
+
+
+##################################################
+
+登录：
+post｛
+url：host/login，
+data：｛'email':email,'name':name｝
+｝
+.then(function(){})
+验证成功 返回
+
+测试 node+mongodb
