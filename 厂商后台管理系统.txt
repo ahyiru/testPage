@@ -66,3 +66,13 @@ data：｛'email':email,'name':name｝
 验证成功 返回
 
 测试 node+mongodb
+
+mongoldb 
+
+mongod --dbpath /Users/user/data/db/
+
+use mydb
+shoe dos
+db.users.save({name:”test”})
+
+mongoose
