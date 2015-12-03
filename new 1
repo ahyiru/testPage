@@ -1,0 +1,76 @@
+
+homepage
+
+
+/authorization 用户管理
+
+	/user
+		/add,/edit,/delete
+		
+		用户名,显示名,用户类型,厂商,提交
+		
+	/permission
+		/add,/edit
+		
+		名称,key,提交
+		
+	/role
+		/add,/edit
+		
+		名称,权限,提交
+		
+	/module
+		/add,/edit
+		
+	/login
+	
+	账号,密码,登录
+
+	/logout
+	
+	注销
+
+	/changepwd
+	
+	旧密码,新密码,确认,提交
+	
+	
+/ads 广告管理
+
+	/ad_list
+	/ad_new
+	/delete
+	/status
+	
+	广告ID,广告图片,广告地址,添加时间,操作
+	
+/vendor 厂商管理
+
+	/vendor_ls
+	/vendor_new
+	/vendor_edit
+	/vendor_delete
+	
+	厂商,厂商标识,品牌,型号,批次,添加时间,操作
+	
+	
+/update 升级管理
+
+	/manage //升级包管理
+	系统名称,系统版本,升级包类型,下载地址,MD5,添加时间,状态,操作
+	/create
+	系统名称,系统类型,品牌,型号,批次,版本号,升级提示,版本特点,详细说明
+	/syncfile
+	/test_result
+	测试结果,结果描述,提交
+	/test_list
+	当前系统版本,最新系统版本,型号,批次,添加时间,升级包类型,状态,操作
+	/config_setting
+	当前系统版本,升级系统版本,型号,批次,升级包类型,升级包大小,仅wifi下载,升级提示类型,指定测试号,提交
+	/delete_pkg
+	/pub_list
+	当前系统版本,最新系统版本,型号,批次,添加时间,发布时间,升级包类型,状态,操作
+	/update_info
+	当前系统版本,最新系统版本,类型,文件路径,下载url,添加时间,操作
+	
+vendor,update --> device
